@@ -11,18 +11,20 @@ import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { LoginComponent } from './shared/auth/login/login.component';
 import { RegisterComponent } from './shared/auth/register/register.component';
-import { MuestraComponent } from './pages/muestra/muestra/muestra.component';
 import { SidenavComponent } from './shared/layout/sidenav/sidenav.component';
 import { ResetComponent } from './shared/auth/reset/reset.component';
+import { PanelComponent } from './pages/panel/panel.component';
+import { ProyectosComponent } from './pages/proyectos/proyectos.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     LoginComponent,
     RegisterComponent,
-    MuestraComponent,
     SidenavComponent,
-    ResetComponent
+    ResetComponent,
+    PanelComponent,
+    ProyectosComponent
   ],
   imports: [
     BrowserModule,
