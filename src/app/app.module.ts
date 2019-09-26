@@ -15,6 +15,7 @@ import { SidenavComponent } from './shared/layout/sidenav/sidenav.component';
 import { ResetComponent } from './shared/auth/reset/reset.component';
 import { PanelComponent } from './pages/panel/panel.component';
 import { ProyectosComponent } from './pages/proyectos/proyectos.component';
+import { ModalComponent } from './pages/proyectos/modal/modal.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { ProyectosComponent } from './pages/proyectos/proyectos.component';
     SidenavComponent,
     ResetComponent,
     PanelComponent,
-    ProyectosComponent
+    ProyectosComponent,
+    ModalComponent
   ],
   imports: [
     BrowserModule,
@@ -42,6 +44,9 @@ import { ProyectosComponent } from './pages/proyectos/proyectos.component';
     MatSidenavModule, 
     MatListModule, 
     MatButtonModule,
+  ],
+  entryComponents: [
+    ModalComponent
   ],
   providers: [],
   bootstrap: [AppComponent]

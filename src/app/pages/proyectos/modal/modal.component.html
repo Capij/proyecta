@@ -1,0 +1,33 @@
+<h5 class="card-title">Nuevo proyecto</h5>
+
+<form [formGroup]="fromNewProyects">
+
+        <mat-form-field  class="width-f">
+                <input  id="name"
+                        matInput 
+                        placeholder="name"
+                        formControlName="name"
+                        >
+        </mat-form-field>         
+        <mat-form-field class="width-f">
+                <input  type="number"
+                        id="timeProject"
+                        matInput 
+                        placeholder="Tiempo"
+                        formControlName="timeProject"
+                        >
+        </mat-form-field> 
+        <div class="row">
+                <div class="col-md-12">
+                        <button mat-raised-button color="primary">
+                                Agregar
+                        </button>
+                        <button mat-raised-button color="red">
+                                Cancelar
+                        </button>
+                </div>
+
+        </div>  
+</form>
+
+                                      
