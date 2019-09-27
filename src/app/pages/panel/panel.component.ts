@@ -8,9 +8,9 @@ import { AuthService } from '../../shared/auth/auth.service';
 export class PanelComponent implements OnInit {
 
   constructor(public auth: AuthService) {
-    
-    console.log(this.auth.currentUserObservable);
-    
+    this.auth.currentUserObservable.subscribe((user) => {
+      console.log('Active User: ', user);
+    });
   }
 
   ngOnInit() {

@@ -2,6 +2,8 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
 import * as firebase from 'firebase/app';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 @Injectable({
   providedIn: 'root'
@@ -9,49 +11,55 @@ import * as firebase from 'firebase/app';
 
 export class AuthService {
 
-  constructor(private router:Router, public afAuth:AngularFireAuth) { }
+  constructor(private router: Router, public afAuth: AngularFireAuth) { }
 
-  register(user:any){
-
-      console.log(user.value.nombre);
-      firebase.auth().createUserWithEmailAndPassword(user.value.email, user.value.password)
-      .then(res => {
-        this.router.navigate(['/login']);
-      }, err => console.log(err))
+  async register(user: any) {
+    console.log(`Registering '${user.nombre}' with email '${user.email}'...`);
+    try {
+      await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);
+      this.router.navigate(['/dashboard']);
+    } catch (e) {
+      console.error(e);
+      if (e.message) {
+        alert(e.message);
+      }
+      throw e;
+    }
   }
 
-  login( email:string, password:string ){
-
-    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
-    .then((res) => {
-
-      firebase.auth().signInWithEmailAndPassword(email,password)
-      .then((res) =>{
-        
-        this.router.navigate(['/dashboard']);
-      
-      }, (err) => console.log(err));
-
-    })
-    .catch(function(error) {
-      // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
-    });
+  async login(email: string, password: string) {
+    try {
+      await this.afAuth.auth.signInWithEmailAndPassword(email, password);
+      this.router.navigate(['/dashboard']);
+    } catch (e) {
+      console.error(e);
+      if (e.message) {
+        alert(e.message);
+      }
+      throw e;
+    }
   }
 
-  logout(){
-    firebase.auth().signOut();
+  logout() {
+    this.afAuth.auth.signOut();
     this.router.navigate(['login']);
   }
-  
+
   get authenticated(): boolean {
     return firebase.auth().currentUser !== null;
   }
 
-  get currentUserObservable(): any {
-    return firebase.auth().currentUser;
+  get isAuthenticated(): Observable<boolean> {
+    // La funcion map() dentro de pipe() sirve para transformar lo que
+    // el observable ('user' en este caso) arroja. Aquí lo 'mapeamos'
+    // del tipo User a booleano ya que el resultado de 'user !== null'
+    // es un booleano true o false.
+    return this.afAuth.user.pipe(
+      map((user) => user !== null)
+    );
   }
 
-
+  get currentUserObservable(): Observable<firebase.User> {
+    return this.afAuth.user;
+  }
 }

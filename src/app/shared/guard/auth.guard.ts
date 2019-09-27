@@ -1,32 +1,26 @@
 import { Injectable } from '@angular/core';
-import {CanActivate, ActivatedRouteSnapshot, RouterStateSnapshot, UrlTree, Router} from '@angular/router';
+import { CanActivate, Router } from '@angular/router';
 import { AuthService } from '../auth/auth.service'
 import { Observable } from 'rxjs';
-import { map } from 'rxjs/operators'
-import * as firebase from 'firebase/app';
+import { tap } from 'rxjs/operators'
 
 @Injectable({
   providedIn: 'root'
 })
-export class AuthGuard implements CanActivate{
-  constructor(private auth:AuthService, private router: Router){}
+export class AuthGuard implements CanActivate {
+  constructor(private auth: AuthService, private router: Router) { }
 
 
-  canActivate(
-    next: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot): Observable<boolean> | boolean {
-      if (this.auth.authenticated) { return true; }
-
-      // return this.auth.currentUserObservable
-      //      .take(1)
-      //      .map(user => !!user)
-      //      .do(loggedIn => {
-      //        if (!loggedIn) {
-               console.log("access denied")
-               this.router.navigate(['/login']);
-        //      }
-        //  })
-
+  canActivate(): Observable<boolean> | boolean {
+    // El metodo pipe() se ejecuta cuando te suscribes al observable
+    // en este caso Angula se suscribe automaticamente.
+    return this.auth.isAuthenticated.pipe(
+      tap((userAuthenticated) => {
+        if (!userAuthenticated) {
+          this.router.navigate(['login']);
+        }
+      })
+    );
   }
 
 }
