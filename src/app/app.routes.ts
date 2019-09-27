@@ -4,12 +4,12 @@ import { LoginComponent } from './shared/auth/login/login.component'
 import { ResetComponent } from './shared/auth/reset/reset.component';
 import { PanelComponent } from './pages/panel/panel.component';
 import { ProyectosComponent } from './pages/proyectos/proyectos.component';
-
+import { AuthGuard } from './shared/guard/auth.guard'
 export const ROUTES: Routes = 
 [
 
-    { path: 'dashboard', component: PanelComponent },
-    { path: 'projects', component: ProyectosComponent },
+    { path: 'dashboard', component: PanelComponent, canActivate: [AuthGuard] },
+    { path: 'projects', component: ProyectosComponent, canActivate: [AuthGuard] },
     { path: 'register', component: RegisterComponent },
     { path: 'login', component: LoginComponent },
     { path: 'password_reset', component: ResetComponent},

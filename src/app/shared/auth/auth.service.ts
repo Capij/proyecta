@@ -13,32 +13,45 @@ export class AuthService {
 
   register(user:any){
 
-
-      console.log(user);
-      console.log(user.email);
-      this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password)
+      console.log(user.value.nombre);
+      firebase.auth().createUserWithEmailAndPassword(user.value.email, user.value.password)
       .then(res => {
         this.router.navigate(['/login']);
       }, err => console.log(err))
-  
-
-  
   }
 
   login( email:string, password:string ){
 
+    firebase.auth().setPersistence(firebase.auth.Auth.Persistence.LOCAL)
+    .then((res) => {
 
-      this.afAuth.auth.signInWithEmailAndPassword(email,password)
-      .then(res=>{
+      firebase.auth().signInWithEmailAndPassword(email,password)
+      .then((res) =>{
+        
         this.router.navigate(['/dashboard']);
-      }, err=> console.log(err))
+      
+      }, (err) => console.log(err));
 
-
-
-
+    })
+    .catch(function(error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+    });
   }
 
   logout(){
-    this.afAuth.auth.signOut();
+    firebase.auth().signOut();
+    this.router.navigate(['login']);
   }
+  
+  get authenticated(): boolean {
+    return firebase.auth().currentUser !== null;
+  }
+
+  get currentUserObservable(): any {
+    return firebase.auth().currentUser;
+  }
+
+
 }

@@ -1,22 +1,24 @@
 <h5 class="card-title">Nuevo proyecto</h5>
 
 <form [formGroup]="fromNewProyects">
+        <div class="row">
+                        <mat-form-field class="col-md-12">
+                                <input  id="name"
+                                        matInput 
+                                        placeholder="Nombre"
+                                        formControlName="name"
+                                        >
+                        </mat-form-field>    
+                        <mat-form-field class="col-md-6">
+                                <input  type="number"
+                                        id="timeProject"
+                                        matInput 
+                                        placeholder="Tiempo"
+                                        formControlName="timeProject"
+                                        >
+                        </mat-form-field>                         
 
-        <mat-form-field  class="width-f">
-                <input  id="name"
-                        matInput 
-                        placeholder="name"
-                        formControlName="name"
-                        >
-        </mat-form-field>         
-        <mat-form-field class="width-f">
-                <input  type="number"
-                        id="timeProject"
-                        matInput 
-                        placeholder="Tiempo"
-                        formControlName="timeProject"
-                        >
-        </mat-form-field> 
+        </div>
         <div class="row">
                 <div class="col-md-12">
                         <button mat-raised-button color="primary">
