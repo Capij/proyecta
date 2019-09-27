@@ -8,9 +8,9 @@ import { AuthService } from '../auth.service';
   styleUrls: ['./register.component.css']
 })
 export class RegisterComponent implements OnInit {
-  
+
   validEmail: any = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@[a-zA-Z0-9-]+(?:\.[a-zA-Z0-9-]+)*$"
-  createFromGroup(){
+  createFromGroup() {
 
     return new FormGroup({
       nombre: new FormControl('', [Validators.required, Validators.minLength(5)]),
@@ -21,25 +21,24 @@ export class RegisterComponent implements OnInit {
   }
 
   registroForm: FormGroup;
-  constructor(private router:Router, private auth:AuthService) {
+  constructor(private router: Router, private auth: AuthService) {
 
     this.registroForm = this.createFromGroup();
-  
+
   }
 
   ngOnInit() {
   }
 
-  onRegistro(){
-    if(this.registroForm.valid){
-      
-      this.auth.register(this.registroForm);
-      
-    }else{
-      console.log("no registrado");
+  async onRegistro() {
+    try {
+      if (!this.registroForm.valid) return;
+      await this.auth.register(this.registroForm.value);
+    } catch (e) {
+      throw e;
     }
-
   }
+
   get nombre() { return this.registroForm.get('nombre'); }
 
   get email() { return this.registroForm.get('email'); }
