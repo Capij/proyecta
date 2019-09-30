@@ -13,7 +13,8 @@ export class ModalComponent implements OnInit {
 
     return new FormGroup({
       name: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      timeProject: new FormControl('', [Validators.required ])
+      timeInit: new FormControl('', [Validators.required ]),
+      timeEnd: new FormControl('', [Validators.required ]),
     });
 
   }

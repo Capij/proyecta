@@ -8,15 +8,27 @@
                                         placeholder="Nombre"
                                         formControlName="name"
                                         >
-                        </mat-form-field>    
-                        <mat-form-field class="col-md-6">
-                                <input  type="number"
-                                        id="timeProject"
+                        </mat-form-field> 
+                        <mat-form-field>
+                                <input 
                                         matInput 
-                                        placeholder="Tiempo"
-                                        formControlName="timeProject"
-                                        >
-                        </mat-form-field>                         
+                                        [matDatepicker]="picker"
+                                        placeholder="Time init"
+                                        formControlName="timeInit">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+
+                        <mat-form-field>
+                                <input 
+                                        matInput 
+                                        [matDatepicker]="picker" 
+                                        placeholder="Time end"
+                                        formControlName="timeEnd">
+                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                <mat-datepicker #picker></mat-datepicker>
+                        </mat-form-field>
+                      
 
         </div>
         <div class="row">
