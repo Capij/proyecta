@@ -7,33 +7,34 @@
                                         matInput 
                                         placeholder="Nombre"
                                         formControlName="name"
+                                        [(ngModel)]="project.name"
                                         >
                         </mat-form-field> 
-                        <mat-form-field>
-                                <input 
-                                        matInput 
-                                        [matDatepicker]="picker"
-                                        placeholder="Time init"
-                                        formControlName="timeInit">
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
 
-                        <mat-form-field>
-                                <input 
-                                        matInput 
-                                        [matDatepicker]="picker" 
-                                        placeholder="Time end"
-                                        formControlName="timeEnd">
-                                <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
-                                <mat-datepicker #picker></mat-datepicker>
+                        <mat-form-field class="col-md-6">
+                                <mat-select name="typeTime" formControlName="typeTime" placeholder="Medicion de proyecto" [(ngModel)]="project.typeTime">
+                                  <mat-option *ngFor="let type of typeTimes" [value]="type.value">
+                                    {{type.viewValue}}
+                                  </mat-option>
+                                </mat-select>
                         </mat-form-field>
+                        
+                        <mat-form-field class="col-md-6">
+                                <input  id="projetcTime"
+                                        type="number"
+                                        matInput 
+                                        placeholder="Tiempo"
+                                        formControlName="projectTime"
+                                        [(ngModel)]="project.time"
+                                        >
+                        </mat-form-field> 
                       
 
+                        
         </div>
         <div class="row">
                 <div class="col-md-12">
-                        <button mat-raised-button color="primary">
+                        <button mat-raised-button color="primary" (click)="onSave()">
                                 Agregar
                         </button>
                         <button mat-raised-button color="red">

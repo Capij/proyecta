@@ -5,7 +5,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { RouterModule } from '@angular/router';
 import { ROUTES } from './app.routes';
 
-import { MatDatepickerModule,MatMenuModule, MatDialogModule,MatInputModule,MatFormFieldModule, MatCardModule, MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule } from '@angular/material';
+import { MatSelectModule, MatDatepickerModule, MatNativeDateModule, MatMenuModule, MatDialogModule,MatInputModule,MatFormFieldModule, MatCardModule, MatToolbarModule, MatIconModule, MatSidenavModule, MatListModule, MatButtonModule } from '@angular/material';
 
 import { AngularFireModule } from '@angular/fire';
 import { AngularFireAuthModule } from '@angular/fire/auth';
@@ -58,7 +58,8 @@ import { ModalComponent } from './pages/proyectos/modal/modal.component';
     MatListModule, 
     MatButtonModule,
     MatDatepickerModule,
-    
+    MatNativeDateModule,
+    MatSelectModule
   ],
   entryComponents: [
     ModalComponent

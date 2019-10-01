@@ -9,7 +9,6 @@ export class PanelComponent implements OnInit {
 
   constructor(public auth: AuthService) {
     this.auth.currentUserObservable.subscribe((user) => {
-      console.log('Active User: ', user);
     });
   }
 
