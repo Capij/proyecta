@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
+import { AuthService } from '../../auth/auth.service'
 @Component({
   selector: 'app-sidenav',
   templateUrl: './sidenav.component.html',
@@ -7,12 +8,12 @@ import { Router } from '@angular/router';
 })
 export class SidenavComponent implements OnInit {
 
-  constructor(private router:Router){ }
+  constructor(private router:Router, private auth:AuthService ){ }
 
   ngOnInit() {
   }
 
   onSignIn(){
-    this.router.navigate(['login']);
+    this.auth.logout();
   }
 }
