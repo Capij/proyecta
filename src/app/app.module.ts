@@ -27,6 +27,7 @@ import { PanelComponent } from './pages/panel/panel.component';
 import { ProyectosComponent } from './pages/proyectos/proyectos.component';
 import { ModalComponent } from './pages/proyectos/modal/modal.component';
 import { UserComponent } from './pages/user/user.component';
+import { CardProjectComponent } from './pages/proyectos/modal/card-project/card-project.component';
 
 @NgModule({
   declarations: [
@@ -38,7 +39,8 @@ import { UserComponent } from './pages/user/user.component';
     PanelComponent,
     ProyectosComponent,
     ModalComponent,
-    UserComponent
+    UserComponent,
+    CardProjectComponent
   ],
   imports: [
     BrowserModule,

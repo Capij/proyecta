@@ -1,6 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import {MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA} from '@angular/material';
 import { ModalComponent } from '../proyectos/modal/modal.component'
+import { ProjectModel } from '../../models/proyecto.model'
+import { ProyectosService } from './services/proyectos.service'
+import { Observable } from 'rxjs';
+import { take } from 'rxjs/internal/operators/take';
 
 @Component({
   selector: 'app-proyectos',
@@ -10,21 +14,29 @@ import { ModalComponent } from '../proyectos/modal/modal.component'
 
 export class ProyectosComponent implements OnInit {
 
-  constructor(private dialog:MatDialog) { }
+  items: Observable<ProjectModel[]>;
+  dialogRef: MatDialogRef<ModalComponent>;
+
+  constructor(private dialog:MatDialog, private ps: ProyectosService) { }
 
   ngOnInit() {
+    
+    this.items = this.ps.getProjects();
+
   }
   addProyect(): void{
-    const dialogRef =  this.dialog.open(ModalComponent,{
+    this.dialogRef =  this.dialog.open(ModalComponent,{
       width: '500px'
     });
 
-    dialogRef.afterClosed().subscribe(result => {
-      
-      console.log('cerrado');
+    this.dialogRef.componentInstance.save.pipe(take(1)).subscribe((projectDocRef) => {
+      if(projectDocRef){
+        this.dialogRef.close();
+      }
 
     });
 
   }
+
 
 }

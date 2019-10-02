@@ -1,18 +1,18 @@
 <h5 class="card-title">Nuevo proyecto</h5>
 
 <form [formGroup]="fromNewProyects">
+                <mat-dialog-content>
         <div class="row">
                         <mat-form-field class="col-md-12">
-                                <input  id="name"
+                                <input
                                         matInput 
-                                        placeholder="Nombre"
-                                        formControlName="name"
-                                        [(ngModel)]="project.name"
+                                        placeholder="Titulo"
+                                        formControlName="title"
                                         >
                         </mat-form-field> 
 
                         <mat-form-field class="col-md-6">
-                                <mat-select name="typeTime" formControlName="typeTime" placeholder="Medicion de proyecto" [(ngModel)]="project.typeTime">
+                                <mat-select name="typeTime" formControlName="typeTime" placeholder="Medicion de proyecto">
                                   <mat-option *ngFor="let type of typeTimes" [value]="type.value">
                                     {{type.viewValue}}
                                   </mat-option>
@@ -20,29 +20,44 @@
                         </mat-form-field>
                         
                         <mat-form-field class="col-md-6">
-                                <input  id="projetcTime"
+                                <input
                                         type="number"
                                         matInput 
-                                        placeholder="Tiempo"
+                                        placeholder="Tiempo estimado"
                                         formControlName="projectTime"
-                                        [(ngModel)]="project.time"
                                         >
                         </mat-form-field> 
                       
+                        <mat-form-field class="col-md-12">
+                                <textarea
+                                          matInput 
+                                          placeholder="Descripcion"
+                                          formControlName="desc"></textarea>
+                        </mat-form-field>
+                        <mat-form-field class="col-md-12">
+                                <mat-select matInput  formControlName="members" placeholder="Agregar colaboradores" multiple>
+                                        <mat-option *ngFor="let member of members | async" [value]="member.id">
+                                                {{member.name}}
+                                        </mat-option>
+                                </mat-select>
+                        </mat-form-field>
 
+                                      
                         
         </div>
-        <div class="row">
-                <div class="col-md-12">
-                        <button mat-raised-button color="primary" (click)="onSave()">
-                                Agregar
-                        </button>
-                        <button mat-raised-button color="red">
-                                Cancelar
-                        </button>
-                </div>
+</mat-dialog-content>
 
-        </div>  
+<mat-dialog-actions aling="end">
+                <button mat-button mat-dialog-close>
+                                Cancelar
+                </button>
+                <button mat-raised-button color="primary" (click)="onSave()">
+                        Agregar
+                </button>
+
+</mat-dialog-actions>
+
+
 </form>
 
                                       

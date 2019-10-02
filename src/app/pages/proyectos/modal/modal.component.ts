@@ -1,8 +1,11 @@
-import { Component, OnInit } from '@angular/core';
-import { NgForm } from '@angular/forms';
+import { Component, OnInit , Input,Output, EventEmitter} from '@angular/core';
 import { FormGroup, FormControl ,Validators } from '@angular/forms'
 import { ProjectModel, MemberModel } from '../../../models/proyecto.model'
+import { UserModel } from '../../../models/user.model';
 import { AuthService } from '../../../shared/auth/auth.service'
+import { UserService } from '../../user/services/user.service'
+import { ProyectosService } from '../../proyectos/services/proyectos.service'
+import { Observable } from 'rxjs';
 
 export interface typeTime {
   value: number;
@@ -16,7 +19,13 @@ export interface typeTime {
 })
 export class ModalComponent implements OnInit {
 
-  project: ProjectModel;
+  @Input() project: ProjectModel; 
+  @Input() newProject =  true;
+  @Output() save =  new EventEmitter();
+
+
+  members : Observable<UserModel[]>;
+
   member: MemberModel[] = [];
 
   typeTimes: typeTime[] = [
@@ -26,31 +35,25 @@ export class ModalComponent implements OnInit {
 
   ];
 
-  createFromGroup(){
+  fromNewProyects =  new FormGroup({
+    title: new FormControl('', [Validators.required, Validators.minLength(5)]),
+    typeTime: new FormControl('', [Validators.required]),
+    projectTime: new FormControl('',[Validators.required]),
+    desc: new FormControl(''),
+    members: new FormControl([''])
+  });
 
-    return new FormGroup({
-      name: new FormControl('', [Validators.required, Validators.minLength(5)]),
-      typeTime: new FormControl('', [Validators.required]),
-      projectTime: new FormControl('',[Validators.required])
-    });
-
-  }
-
-  fromNewProyects: FormGroup;
 
   uid :string;
 
-  constructor(public auth: AuthService) {
+  constructor(public auth: AuthService, public us: UserService, public ps: ProyectosService) {
     
     this.auth.currentUserObservable.subscribe((user) => {
-      //console.log('Active User: ', user);
       this.uid = user.uid;
-      //console.log(this.uid);
     });
 
-    this.fromNewProyects = this.createFromGroup();
-    this.project = new ProjectModel();
 
+    this.members = this.us.getMembersUsers();
 
   }
 
@@ -59,20 +62,15 @@ export class ModalComponent implements OnInit {
   onSave(){
     if(this.fromNewProyects.valid){
 
-      //console.log(this.fromNewProyects.value.typeTime);
-      let myTimestamp = Date.now();
-      this.project.timestamp = new Date(myTimestamp);
-      this.project.uid = this.uid;
-  
-      let member = new MemberModel();
-      member.id = this.uid;
-      member.name= "Emmanuel";
-      console.log(member);
-      //this.project.members.push(this.member);
-      this.project.members.push(member);
-      console.log(this.project);
-      console.log("nueco");
-      console.log(this.fromNewProyects);
+      //console.log(this.fromNewProyects.value.typeTime)
+      this.fromNewProyects.value.timestamp = Date.now();
+      this.fromNewProyects.value.uid = this.uid;
+
+      this.ps.saveProject(this.fromNewProyects.value).then((res)=>{
+        this.save.emit(res);
+      })
+      
+
     }else{
       console.log("no entro");
     }

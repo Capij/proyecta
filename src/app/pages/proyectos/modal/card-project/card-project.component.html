@@ -1,0 +1,30 @@
+<mat-card class="card-width">
+    <!-- <img mat-card-image src="https://material.angular.io/assets/img/examples/shiba2.jpg" alt="Photo of a Shiba Inu"> -->
+    <mat-card-header class="d-flex justify-content-between">
+            <!-- <div mat-card-avatar class="example-header-image"></div> -->
+                        <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
+    <mat-card-title>{{ projectInfo.title }}</mat-card-title>
+
+    <button mat-icon-button>
+        <mat-icon aria-hidden="false">
+            more_vert
+        </mat-icon>
+    </button>
+
+    </mat-card-header>
+
+    <mat-card-actions >
+        <button mat-raised-button color="primary" (click)="editProject()">
+            <mat-icon aria-hidden="false">
+                create
+            </mat-icon>
+        </button>
+        <button mat-raised-button class="button-color-view">
+                <mat-icon aria-hidden="true">
+                    visibility
+                </mat-icon>
+        </button>
+        <!-- <button mat-raised-button color="primary">SHARE</button> -->
+    </mat-card-actions>
+</mat-card>
+

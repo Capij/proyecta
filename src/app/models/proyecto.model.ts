@@ -1,9 +1,11 @@
-export class ProjectModel{
-    name: string;
+export interface ProjectModel{
+    id?: string;
+    title: string;
     uid: string;
     typeTime: string;
     time: string;
-    members: Array<MemberModel>=[];
+    members: Array<string>;
+    desc: string;
     timestamp: Date;
 }
 
