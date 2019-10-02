@@ -26,6 +26,7 @@ import { ResetComponent } from './shared/auth/reset/reset.component';
 import { PanelComponent } from './pages/panel/panel.component';
 import { ProyectosComponent } from './pages/proyectos/proyectos.component';
 import { ModalComponent } from './pages/proyectos/modal/modal.component';
+import { UserComponent } from './pages/user/user.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { ModalComponent } from './pages/proyectos/modal/modal.component';
     ResetComponent,
     PanelComponent,
     ProyectosComponent,
-    ModalComponent
+    ModalComponent,
+    UserComponent
   ],
   imports: [
     BrowserModule,

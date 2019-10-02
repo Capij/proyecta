@@ -1,8 +1,9 @@
 export class ProjectModel{
     name: string;
+    uid: string;
     typeTime: string;
     time: string;
-    members: Array<MemberModel>
+    members: Array<MemberModel>=[];
     timestamp: Date;
 }
 

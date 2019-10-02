@@ -17,7 +17,7 @@ export interface typeTime {
 export class ModalComponent implements OnInit {
 
   project: ProjectModel;
-  member: MemberModel;
+  member: MemberModel[] = [];
 
   typeTimes: typeTime[] = [
     {value: 1, viewValue: 'Horas'},
@@ -50,7 +50,6 @@ export class ModalComponent implements OnInit {
 
     this.fromNewProyects = this.createFromGroup();
     this.project = new ProjectModel();
-    this.member = new MemberModel();
 
 
   }
@@ -63,12 +62,14 @@ export class ModalComponent implements OnInit {
       //console.log(this.fromNewProyects.value.typeTime);
       let myTimestamp = Date.now();
       this.project.timestamp = new Date(myTimestamp);
-
-      this.member.id = this.uid;
-      this.member.name= "Emmanuel";
-      
-      this.project.members.push(this.member);
-
+      this.project.uid = this.uid;
+  
+      let member = new MemberModel();
+      member.id = this.uid;
+      member.name= "Emmanuel";
+      console.log(member);
+      //this.project.members.push(this.member);
+      this.project.members.push(member);
       console.log(this.project);
       console.log("nueco");
       console.log(this.fromNewProyects);
