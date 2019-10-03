@@ -23,6 +23,7 @@ export class ProyectosComponent implements OnInit {
               private auth: AuthService) {
                 this.auth.currentUserObservable.subscribe((res)=>{
                   this.items = this.ps.getProjects(res.uid);
+                  
                 })
 
               }
@@ -32,7 +33,7 @@ export class ProyectosComponent implements OnInit {
     this.dialogRef =  this.dialog.open(ModalComponent,{
       width: '500px'
     });
-
+    
     this.dialogRef.componentInstance.save.pipe(take(1)).subscribe((projectDocRef) => {
       if(projectDocRef){
         this.dialogRef.close();

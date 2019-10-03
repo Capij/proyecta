@@ -5,11 +5,16 @@
                         <!-- <mat-card-subtitle>Dog Breed</mat-card-subtitle> -->
     <mat-card-title>{{ projectInfo.title }}</mat-card-title>
 
-    <button mat-icon-button>
+
+    <button mat-icon-button [matMenuTriggerFor]="beforeMenu">
         <mat-icon aria-hidden="false">
             more_vert
         </mat-icon>
+        <mat-menu #beforeMenu="matMenu" xPosition="before">
+            <button mat-menu-item>Eliminar</button>
+        </mat-menu>
     </button>
+
 
     </mat-card-header>
 

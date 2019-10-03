@@ -48,12 +48,12 @@ export class ModalComponent implements OnInit {
 
   constructor(public auth: AuthService, public us: UserService, public ps: ProyectosService) {
     
-    this.auth.currentUserObservable.subscribe((user) => {
-      this.uid = user.uid;
+    this.auth.currentUserObservable.subscribe((res) => {
+      this.uid = res.uid;
+      this.members = this.us.getMembersUsers(res.uid);
     });
 
 
-    this.members = this.us.getMembersUsers();
 
   }
 

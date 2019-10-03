@@ -10,8 +10,9 @@ export class UserService {
 
   constructor(private afs: AngularFirestore) { }
 
-  getMembersUsers( ): Observable<UserModel[]>{
-    return this.afs.collection('users').snapshotChanges()
+  getMembersUsers(uid:string): Observable<UserModel[]>{
+
+    return this.afs.collection('users', ref => ref.where('uid','>', uid).where('uid','<', uid) ).snapshotChanges()
     .pipe(
       map((doc)=>{
         return doc.map((ele) =>{

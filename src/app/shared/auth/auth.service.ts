@@ -1,6 +1,7 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuth } from '@angular/fire/auth';
+import { AngularFirestore } from '@angular/fire/firestore';
 import * as firebase from 'firebase/app';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
@@ -11,13 +12,22 @@ import { map } from 'rxjs/operators';
 
 export class AuthService {
 
-  constructor(private router: Router, public afAuth: AngularFireAuth) { }
+  constructor(private router: Router, public afAuth: AngularFireAuth, private afs:AngularFirestore ) { }
 
   async register(user: any) {
     console.log(`Registering '${user.nombre}' with email '${user.email}'...`);
     try {
-      await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password);   
-      this.router.navigate(['/dashboard']);
+      await this.afAuth.auth.createUserWithEmailAndPassword(user.email, user.password).then((res)=>{
+        let dataUser ={
+          email: user.email,
+          name: user.nombre,
+          uid: res.user.uid 
+        }
+
+        this.afs.collection('users').add(dataUser);
+        this.router.navigate(['/login']);
+      });   
+
     } catch (e) {
       console.error(e);
       if (e.message) {
