@@ -10,7 +10,7 @@ export class UserService {
 
   constructor(private afs: AngularFirestore) { }
 
-  getMembersUsers(): Observable<UserModel[]>{
+  getMembersUsers( ): Observable<UserModel[]>{
     return this.afs.collection('users').snapshotChanges()
     .pipe(
       map((doc)=>{
@@ -22,6 +22,9 @@ export class UserService {
         }) as UserModel[];
       })
     )
+
+
+
   }
 
 }

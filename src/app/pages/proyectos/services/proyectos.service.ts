@@ -15,8 +15,8 @@ export class ProyectosService {
 
   constructor(private router:Router , private afs: AngularFirestore) { }
 
-  getProjects(): Observable<ProjectModel[]>{
-    return this.afs.collection('projects').snapshotChanges()
+  getProjects(uid:string): Observable<ProjectModel[]>{
+    return this.afs.collection('projects', ref => ref.where('uid','==', uid)).snapshotChanges()
     .pipe(
       map((doc)=>{
         return doc.map((ele) =>{
