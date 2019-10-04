@@ -11,7 +11,7 @@
             more_vert
         </mat-icon>
         <mat-menu #beforeMenu="matMenu" xPosition="before">
-            <button mat-menu-item>Eliminar</button>
+            <button mat-menu-item (click)="onDeleted()">Eliminar</button>
         </mat-menu>
     </button>
 
@@ -24,7 +24,7 @@
                 create
             </mat-icon>
         </button>
-        <button mat-raised-button class="button-color-view">
+        <button mat-raised-button class="button-color-view" (click)="viewProject()">
                 <mat-icon aria-hidden="true">
                     visibility
                 </mat-icon>

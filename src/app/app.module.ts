@@ -28,6 +28,9 @@ import { ProyectosComponent } from './pages/proyectos/proyectos.component';
 import { ModalComponent } from './pages/proyectos/modal/modal.component';
 import { UserComponent } from './pages/user/user.component';
 import { CardProjectComponent } from './pages/proyectos/modal/card-project/card-project.component';
+import { DeletedComponent } from './pages/proyectos/modal/deleted/deleted.component';
+import { ProyectoTableroComponent } from './pages/proyectos/proyecto-tablero/proyecto-tablero.component';
+import { ListaComponent } from './pages/proyectos/proyecto-tablero/lista/lista.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +43,10 @@ import { CardProjectComponent } from './pages/proyectos/modal/card-project/card-
     ProyectosComponent,
     ModalComponent,
     UserComponent,
-    CardProjectComponent
+    CardProjectComponent,
+    DeletedComponent,
+    ProyectoTableroComponent,
+    ListaComponent
   ],
   imports: [
     BrowserModule,
@@ -66,7 +72,8 @@ import { CardProjectComponent } from './pages/proyectos/modal/card-project/card-
     MatSelectModule
   ],
   entryComponents: [
-    ModalComponent
+    ModalComponent,
+    DeletedComponent
   ],
   providers: [
     AuthService,

@@ -57,7 +57,7 @@
                 <button mat-button mat-dialog-close>
                                 Cancelar
                 </button>
-                <button mat-raised-button color="primary" (click)="onSave()">
+                <button mat-raised-button color="primary" (click)="onSave()" [disabled]="(!fromNewProyects.valid) || stop">
                         Agregar
                 </button>
 

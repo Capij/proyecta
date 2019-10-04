@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from  "@angular/router";
-import { AngularFirestore } from '@angular/fire/firestore';
+import { AngularFirestore, AngularFirestoreCollection} from '@angular/fire/firestore';
 import { ProjectModel } from '../../../models/proyecto.model'
 import { map } from 'rxjs/operators'
 import { Observable } from 'rxjs';
@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 export class ProyectosService {
 
   //items: Observable<ProjectModel[]>
+  private ProjectConllection: AngularFirestoreCollection<ProjectModel>;
 
   constructor(private router:Router , private afs: AngularFirestore) { }
 
@@ -32,6 +33,23 @@ export class ProyectosService {
     return this.afs.collection('projects').add(project);
   }
 
-  
+  updateProject(project:ProjectModel){
+    if(project.id){
+      return this.afs.doc<ProjectModel>(`projects/${project.id}`).update(project);
+    }else{
+      throw Error('No cuenta con id')
+    }
+
+  }
+
+  deletedProject(project: ProjectModel){
+    return this.afs.doc(`projects/${project.id}`).delete();
+  }
+
+  /////////////////////Proyecto tablero//////////////////////////////////
+
+  getProject(id:string): Observable<ProjectModel>{
+    return this.afs.collection('projects').doc(id).snapshotChanges()
+  }
 
 }

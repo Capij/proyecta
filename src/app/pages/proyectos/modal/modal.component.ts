@@ -22,11 +22,12 @@ export class ModalComponent implements OnInit {
   @Input() project: ProjectModel; 
   @Input() newProject =  true;
   @Output() save =  new EventEmitter();
+  stop = false;
 
 
   members : Observable<UserModel[]>;
-
   member: MemberModel[] = [];
+
 
   typeTimes: typeTime[] = [
     {value: 1, viewValue: 'Horas'},
@@ -57,19 +58,34 @@ export class ModalComponent implements OnInit {
 
   }
 
-  ngOnInit() {  }
+  ngOnInit() {
+    if(this.project){
+      this.fromNewProyects.patchValue(this.project);
+    }
+  }
 
-  onSave(){
+  onSave(){  
+    this.stop = true;
     if(this.fromNewProyects.valid){
+      if(!this.newProject && this.project){
+        const projectUpdated ={
+          id: this.project.id,
+          ...this.fromNewProyects.value
+        };
+        this.ps.updateProject(projectUpdated)
+        .then(() => this.save.emit(projectUpdated))
+        .catch((err) => console.log(err));
 
-      //console.log(this.fromNewProyects.value.typeTime)
-      this.fromNewProyects.value.timestamp = Date.now();
-      this.fromNewProyects.value.uid = this.uid;
+      }else{
+        //console.log(this.fromNewProyects.value.typeTime)
+        this.fromNewProyects.value.timestamp = Date.now();
+        this.fromNewProyects.value.uid = this.uid;
 
-      this.ps.saveProject(this.fromNewProyects.value).then((res)=>{
-        this.save.emit(res);
-      })
+        this.ps.saveProject(this.fromNewProyects.value)
+        .then((res)=>{this.save.emit(res)})
+        .catch((err)=> console.log(err));
       
+      }
 
     }else{
       console.log("no entro");
